@@ -1,4 +1,4 @@
 # Kilkenny
-Kilkenny is a no-code application creator.
+Kilkenny is a applicant tracking system.
 
 Build by Ruby on Rails.
