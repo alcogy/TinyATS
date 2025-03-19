@@ -8,7 +8,7 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.4.2
+ARG RUBY_VERSION=3.3.7
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl default-mysql-client libjemalloc2 libvips && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,7 +30,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -44,6 +44,11 @@ COPY . .
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
+
+# Adjust binfiles to be executable on Linux
+RUN chmod +x bin/* && \
+    sed -i "s/\r$//g" bin/* && \
+    sed -i 's/ruby\.exe$/ruby/' bin/*
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
