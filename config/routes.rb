@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   get "/create", to: "applicant#create"
   post "/create", to: "applicant#insert"
   get "/:id/edit", to: "applicant#edit"
-  get "/edit", to: "applicant#update"
+  post "/edit", to: "applicant#update"
   post "/delete", to: "applicant#delete"
 end
