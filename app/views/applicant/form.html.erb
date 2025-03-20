@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kilkenny</title>
-</head>
-<body>
-  <h1>Applicant Form</h1>
-  <%= form_with scope: :applicant, url: @action do |form| %>
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name, :placeholder => "Enter the name." %>
-    </div>
-    <div>
-      <%= form.label :status %>
-      <%= form.collection_select :status, Status.order(:id), :id, :label %>
-    </div>
-    <div>
-      <%= form.hidden_field :id %>
-      <%= form.submit "Submit" %>
-    </div>
-  <% end %>
-</body>
-</html>
+<h1>Applicant Form</h1>
+<%= form_with scope: :applicant, url: @action do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, :placeholder => "Enter the name." %>
+  </div>
+  <div>
+    <%= form.label :status %>
+    <%= form.collection_select :status, Status.order(:id), :id, :label %>
+  </div>
+  <div>
+    <%= form.hidden_field :id %>
+    <%= form.submit "Submit" %>
+  </div>
+<% end %>

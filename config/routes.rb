@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   get "/:id/edit", to: "applicant#edit"
   post "/edit", to: "applicant#update"
   post "/delete", to: "applicant#delete"
+
+  get "/schedule", to: "schedule#index"
 end

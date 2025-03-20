@@ -46,7 +46,6 @@ class ApplicantController < ApplicationController
 
   def delete
     id = params[:id]
-    p(id)
     Applicant.find(id).destroy
     redirect_to("/")
   end
