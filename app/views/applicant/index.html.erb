@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kilkenny</title>
+</head>
+<body>
+  <h1>Applicant List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @list.each do |data| %>
+      <tr>
+        <td><%= data.id %></td>
+        <td><%= data.name %></td>
+        <td>
+          <%= @statuses[data.status] %>
+        </td>
+        <td>
+          <a href="/<%= data.id %>/edit">Edit</a>
+          <button>Delete</button>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>
