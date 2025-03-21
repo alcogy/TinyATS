@@ -1,23 +1,28 @@
 class ScheduleController < ApplicationController
   def index
     @applicants = Applicant.all
+
+    # applicants to hash
     aps = {}
     @applicants.each do |a|
       aps[a.id] = a.name
     end
     @names = aps
+
+    # Fetch schedule data and to hash.
     day = Date.today.wday
     from = day.days.ago.strftime("%Y-%m-%d 00:00:00")
     to = (6 - day).days.after(Date.today).strftime("%Y-%m-%d 23:59:59")
-
-    data = {}
     sch = Schedule.where(date: (from)..(to))
+    data = {}
     sch.each do |s|
       data[s.date.strftime("%y/%m/%dT%H")] = s
     end
     @schedules = data
 
+    # Base date.
     @date = day.days.ago
+
     render "index"
   end
 
