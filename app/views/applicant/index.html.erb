@@ -1,31 +1,38 @@
+<header class="header">
+  <h1>Applicant List</h1>
+  <a href="/schedule">Schedule</a>
+</header>
 
-<h1>Applicant List</h1>
-<a href="/create">Create</a>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @list.each do |data| %>
-    <tr>
-      <td><%= data.id %></td>
-      <td><%= data.name %></td>
-      <td>
-        <%= @statuses[data.status] %>
-      </td>
-      <td>
-        <a href="/<%= data.id %>/edit">Edit</a>
-        <%= form_with url: "/delete" do |form| %>
-          <input type="hidden" name="id" value="<%= data.id %>">
-          <input type="submit" value="Delete">
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="list-wrap">
+  <a href="/create" class="btn btn-create">Create</a>
+  <table class="applicant-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @list.each do |data| %>
+      <tr>
+        <td><%= data.id %></td>
+        <td><%= data.name %></td>
+        <td>
+          <%= @statuses[data.status] %>
+        </td>
+        <td class="fit">
+          <div class="actions">
+            <a href="/<%= data.id %>/edit" class="btn btn-create">Edit</a>
+            <%= form_with url: "/delete" do |form| %>
+              <input type="hidden" name="id" value="<%= data.id %>">
+              <input type="submit" value="Delete" class="btn btn-delete">
+            <% end %>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,1 +1,55 @@
-schedule
+<header class="header">
+  <h1>Schedule</h1>
+  <a href="/">Applicant list</a>
+</header>
+<div class="schedule-create-form">
+  <p class="sub-title">Reserve Interview Schedule</p>
+  <form action="/schedule" method="post">
+    <input type="date" name="date" required />
+    <select name="time">
+      <% (10..17).each do |t| %>
+        <option value="<%= t %>"><%= t %>:00</option>
+      <% end %>
+    </select>
+    <select name="applicant_id">
+      <% @applicants.each do |applicant| %>
+        <option value="<%= applicant.id %>"><%= applicant.name %></option>
+      <% end %>
+    </select>
+    <input type="text" name="remark">
+    <input type="submit" value="reserve">
+  </form>
+</div>
+
+<table class="schedule-table">
+  <caption>Schedule of week</caption>
+  <thead>
+    <tr>
+      <th></th>
+      <% (0..6).each do |d| %>
+        <th><%= d.days.after(@date).strftime("%m/%d") %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% (10..17).each do |t| %>
+    <tr>
+      <td><%= t %>:00</td>
+      <% (0..6).each do |d| %>
+      <td>
+        <% schedule = @schedules[d.days.after(@date).strftime("%y/%m/%dT") + t.to_s] %>
+        <% if schedule %>
+          <p class="schedule name"><%= @names[schedule.applicant_id] %></p>
+          <p class="schedule remark"><%= schedule.remark %></p>
+          <form action="/schedule/delete" method="post">
+            <input type="hidden" name="id" value="<%= schedule.id %>">
+            <input type="submit" value="Delete" class="btn btn-delete">
+          </form>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

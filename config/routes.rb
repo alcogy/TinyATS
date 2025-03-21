@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   post "/delete", to: "applicant#delete"
 
   get "/schedule", to: "schedule#index"
+  post "/schedule", to: "schedule#post"
+  post "/schedule/delete", to: "schedule#delete"
 end

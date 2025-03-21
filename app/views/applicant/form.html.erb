@@ -1,4 +1,9 @@
-<h1>Applicant Form</h1>
+<header class="header">
+  <h1>Applicant Form</h1>
+  <a href="/">List</a>
+</header>
+
+<div class="form-wrap">
 <%= form_with scope: :applicant, url: @action do |form| %>
   <div>
     <%= form.label :name %>
@@ -10,6 +15,7 @@
   </div>
   <div>
     <%= form.hidden_field :id %>
-    <%= form.submit "Submit" %>
+    <%= form.submit "Submit", :class => "btn btn-create" %>
   </div>
 <% end %>
+</div>
